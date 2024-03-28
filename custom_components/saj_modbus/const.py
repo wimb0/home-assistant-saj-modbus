@@ -1,4 +1,6 @@
 from dataclasses import dataclass
+
+from homeassistant.components.number import NumberEntityDescription
 from homeassistant.components.sensor import (
     SensorDeviceClass,
     SensorStateClass,
@@ -25,8 +27,22 @@ ATTR_MANUFACTURER = "SAJ Electric"
 
 
 @dataclass
-class SajModbusSensorEntityDescription(SensorEntityDescription):
+class SajModbusNumberEntityDescription(NumberEntityDescription):
     """A class that describes Zoonneplan sensor entities."""
+
+NUMBER_TYPES: dict[str, list[SajModbusNumberEntityDescription]] = {
+    "LimitPower": SajModbusNumberEntityDescription(
+        name="Limit Power",
+        key="limitpower",
+        icon="mdi:solar-power",
+        native_unit_of_measurement="%",
+    )
+}
+
+
+@dataclass
+class SajModbusSensorEntityDescription(SensorEntityDescription):
+    """A class that describes SAJ number entities."""
 
 
 SENSOR_TYPES: dict[str, list[SajModbusSensorEntityDescription]] = {
